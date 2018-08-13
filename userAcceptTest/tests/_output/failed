@@ -1,4 +1,1 @@
 tests\acceptance\GiftTestCest.php:individualgift
-tests\acceptance\GiftTestCest.php:familygift
-tests\acceptance\GiftTestCest.php:visionarygift
-tests\acceptance\JoinTest2Cest.php:dualtest

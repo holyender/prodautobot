@@ -1,0 +1,4063 @@
+<<<<<<< HEAD
+=======
+<html>
+  <head>
+    <title>
+      Test results
+    </title>
+    <meta charset='utf-8'>
+    <link href='http://fonts.googleapis.com/css?family=Varela+Round&amp;v2' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+             .layout {
+                 margin: 0 auto;
+                 max-width: 1000px;
+
+                 }
+                 body { font-family: arial, serif; margin: 0; padding: 0; background: #ecf0f1; font-size: 20px; }
+                 h1,h2,h3 { font-family: arial, serif; color: #7f8c8d; }
+                 h1 { font-size: 2.5em; }
+                 h2 { font-size: 1.3em; }
+         h3 { font-size: 1em; color: #84BBDD; margin: 0.5em 0; }
+
+                 table { border: none; margin: 0; padding: 0; font-size: 0.9em;}
+                 .scenarioStepsTable .stepName { padding: 5px; }
+
+                 .scenarioStepsTable td {
+            background: #fff;
+                 }
+
+         .quiet {
+             color: #333;
+             font-size: 0.8em;
+         }
+
+         .screenshot {
+             max-height: 400px;
+             overflow-y: scroll;
+             display: block;
+         }
+         .screenshot img {
+             zoom: 0.5;
+         }
+
+         @media (max-width: 1200px) {
+           #toolbar-filter {
+             display: none !important;
+           }
+         }
+
+         .scenarioStepsTable .nostyle {
+             background: none;
+             border: none;
+         }
+
+                 p {
+                    cursor: pointer;
+                 }
+
+         .scenarioRow>td>p {
+             padding: 5px;
+         }
+
+         .scenarioStepsTable .failedStep {
+             padding: 10px;
+             background: #ecf0f1;
+             border: 2px solid #e74c3c;
+             border-radius: 0px;
+             color:  #e74c3c;
+         }
+
+         .scenarioStepsTable .error {
+             background:  #999;
+             padding: 10px;
+             color: #fff;
+             border-radius: 0px;
+         }
+
+         .scenarioStepsTable .error a {
+             color: #eef;
+         }
+
+         .scenarioStepsTable.substeps td {
+             background: #bdc3c7;
+         }
+
+                 .header { font-size: large; font-weight: bold; }
+                 p.scenarioSuccess {
+                 background: rgb(157,213,58); /* Old browsers */
+                 }
+
+
+                 .scenario { color: black; }
+                 p.scenarioFailed, p.scenarioError { color: black;
+                   background: #e74c3c
+                 }
+
+                 table.scenarioFailed tr:last-child { font-weight: bold; }
+
+                 td.scenarioSuccess { color: green }
+                 td.scenarioFailed { color: red }
+                 .scenarioSkipped { color: teal; }
+                 .scenarioIncomplete { color: gray; }
+                 .scenarioStepsTable { margin-left: 10px; display: none; color: #333; }
+
+                 #stepContainerSummary {
+                 background: white;
+                 -webkit-border-radius: 5px;
+                 -moz-border-radius: 5px;
+                 border-radius: 5px;
+                 padding: 20px;
+                 }
+
+         .toggle {
+             background: rgba(255,255,255,0.5);
+             border-radius: 10px;
+             display: inline-block;
+             width: 20px;
+             height: 20px;
+             text-align: center;
+             margin: auto;
+             color: #666
+         }
+
+                 ul#toolbar-filter {
+            display: block;
+            position: fixed;
+            top: 20px;
+            left: 0px;
+            padding: 0px;
+                 }
+                 ul#toolbar-filter li {
+                    list-style: none;
+                    text-align: center;
+                        padding: 20px;
+                        background-color: #3498db;
+                 }
+                 ul#toolbar-filter li a, ul#toolbar-filter li a:hover, ul#toolbar-filter li a:visited {
+                    color: #34495e;
+                    text-decoration: none;
+                 }
+                 ul#toolbar-filter li.disabled {
+                        background-color: #bdc3c7;
+                 }
+    </style>
+    <script type="text/javascript">
+var showAll = true;
+    function showHide(nodeId, linkObj)
+    {
+    var subObj = document.getElementById('stepContainer' + nodeId);
+    var toggle = linkObj.childNodes[0];
+    if (toggle.innerHTML != '-') {
+      toggle.innerHTML = '-';
+      subObj.style.display='block';
+      subObj.style.width = '100%';
+    } else {
+      toggle.innerHTML = '+';
+      subObj.style.display='none';
+    }
+    }
+
+    function showAllScenarios() {
+    var toolbar = document.getElementById('toolbar-filter');
+    for (var i = 0; i < toolbar.children.length; i++) {
+      toolbar.children[i].className = '';
+    }
+
+    var trs = document.getElementsByTagName('tr');
+    for(var z = 0; z < trs.length; z++) {
+      trs[z].style.display = '';
+    }
+    showAll = true;
+    }
+
+    function toggleScenarios(name, linkObj) {
+    var links = document.getElementById('toolbar-filter').children;
+    var rows = document.getElementsByClassName('scenarioRow');
+    if (showAll) {
+        for (var i = 0; i < links.length; i++) {
+            links[i].className = 'disabled';
+        }
+
+        for (var i = 0; i < rows.length; i++) {
+            rows[i].style.display = 'none';
+        }
+
+    }
+    showAll = false;
+
+    if (linkObj.className == '') {
+        linkObj.className = 'disabled';
+        for (var i = 0; i < rows.length; i++) {
+          if (rows[i].classList.contains(name)) {
+                rows[i].style.display = 'none';
+          }
+        }
+        return;
+    }
+    if (linkObj.className == 'disabled') {
+        linkObj.className = '';
+        for (var i = 0; i < rows.length; i++) {
+          if (rows[i].classList.contains(name)) {
+                rows[i].style.display = 'table-row';
+          }
+        }
+        return;
+    }
+
+    }
+    </script>
+  </head>
+  <body>
+    <ul id="toolbar-filter">
+      <li>
+        <a href="#" title="Show all" onclick="showAllScenarios()">◯</a>
+      </li>
+      <li>
+        <a href="#" title="Successful" onclick="toggleScenarios('scenarioSuccess', this.parentElement)"><strong>✔</strong> 5</a>
+      </li>
+      <li>
+        <a href="#" title="Failed" onclick="toggleScenarios('scenarioFailed', this.parentElement)"><strong>✗</strong> 12</a>
+      </li>
+      <li>
+        <a href="#" title="Skipped" onclick="toggleScenarios('scenarioSkipped', this.parentElement)"><strong>S</strong> 0</a>
+      </li>
+      <li>
+        <a href="#" title="Incomplete" onclick="toggleScenarios('scenarioIncomplete', this.parentElement)"><strong>I</strong> 0</a>
+      </li>
+    </ul>
+    <div class="layout">
+      <h1>
+        Codeception Results <small><span style="color: #e74c3c">FAILED</span> (703.8s)</small>
+      </h1>
+      <table border="0" style="width: 100%;">
+        <tr>
+          <td>
+            <h3>
+              Acceptance Tests
+            </h3>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioSuccess">
+          <td>
+            <p class="scenarioSuccess" onclick="showHide('1', this)">
+              <span class="toggle">+</span> <span class="quiet">DonateTestCest »</span> Logintest <span style="color: #34495e; font-size: 70%;">4.3s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioSuccess">
+          <td>
+            <table border="0" width="100%" class="scenarioSuccess scenarioStepsTable" id="stepContainer1">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioSuccess">
+          <td>
+            <p class="scenarioSuccess" onclick="showHide('2', this)">
+              <span class="toggle">+</span> <span class="quiet">DonateTestCest »</span> Donatetest <span style="color: #34495e; font-size: 70%;">56.36s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioSuccess">
+          <td>
+            <table border="0" width="100%" class="scenarioSuccess scenarioStepsTable" id="stepContainer2">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"donations"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/make-monetary-donation-now"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">2</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-amount-amount-500"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"Dedication Message","testDedicationMessage"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-amount-field-cobblestone-honoree-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"Honoree First Name","testHonorFN"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"Honoree Last Name","testHonorLN"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"Honoree Organization Name","testHonorOrg"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-customer-profile-shipping-field-email-und-0-value","testHonorEmail403309@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"First name","testFN"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"Last name","testLN"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"Company","testCompany"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"Country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"Address 1","123 Test Street"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"Address 2","apt 2b"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"City","testCity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"State","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"ZIP code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"Phone","2019788216"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-customer-profile-billing-commerce-customer-profile-copy").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-customer-profile-billing-commerce-customer-profile-copy"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">2</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"op"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#recurring-form").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait for element <span style="color: #732E81">"#recurring-form",30</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#ui-id-1").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">2</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"No, one-time only"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/make-monetary-donation-now/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","testFN testLN"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">2</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"op"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/make-monetary-donation-now/complete"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">2</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('3', this)">
+              <span class="toggle">+</span> <span class="quiet">GiftTestCest »</span> Individualgift <span style="color: #34495e; font-size: 70%;">59.17s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer3">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">2</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"Sign up"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/gift/individual"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest255900@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN255900"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN255900"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/individual/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-mail","gifttest255900@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN255900"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN255900"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-first-und-0-value","FN255900"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-last-und-0-value","LN255900"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/individual/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/individual/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Undefined variable: ccOwnerFirst
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='GiftTestCest.individualgift.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='GiftTestCest.individualgift.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('4', this)">
+              <span class="toggle">+</span> <span class="quiet">GiftTestCest »</span> Dualgift <span style="color: #34495e; font-size: 70%;">40.56s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer4">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/gift/dual"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest824250@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN824250"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN824250"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/dual/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-mail","gifttest824250@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN824250"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN824250"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-first-und-0-value","FN824250"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-last-und-0-value","LN824250"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/dual/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/dual/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN824250"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN824250 LN824250"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that on page /gift/dual/payment-method<br>
+                  --&gt; Skip to main content<br>
+                  LOG IN<br>
+                  TRANSLATE<br>
+                  STORE MEDIA CENTER ABOUT INTERACT BLOG CALENDAR MEMBERS FAQ<br>
+                  VISIT<br>
+                  MEMORIAL<br>
+                  MUSEUM<br>
+                  TEACH + LEARN<br>
+                  GET INVOLVED<br>
+                  DONATE<br>
+                  « HOME / GIFT<br>
+                  Gift<br>
+                  STEP 4 OF 4: PAYMENT INFORMATION.<br>
+                  Please provide your payment information below and then click submit to complete your purchas<br>
+                  [Content too long to display. See complete response in 'C:\Users\bliu\workprojects\automationtests\prodautobot\userAcceptTest\tests/_output\' directory]<br>
+                  --&gt; contains "Thank You".
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='GiftTestCest.dualgift.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='GiftTestCest.dualgift.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('5', this)">
+              <span class="toggle">+</span> <span class="quiet">GiftTestCest »</span> Familygift <span style="color: #34495e; font-size: 70%;">44.69s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer5">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/gift/family"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest491611@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN491611"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN491611"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/family/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-mail","gifttest491611@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN491611"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN491611"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-first-und-0-value","FN491611"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-last-und-0-value","LN491611"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/family/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/family/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN491611"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN491611 LN491611"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that on page /gift/family/payment-method<br>
+                  --&gt; Skip to main content<br>
+                  LOG IN<br>
+                  TRANSLATE<br>
+                  STORE MEDIA CENTER ABOUT INTERACT BLOG CALENDAR MEMBERS FAQ<br>
+                  VISIT<br>
+                  MEMORIAL<br>
+                  MUSEUM<br>
+                  TEACH + LEARN<br>
+                  GET INVOLVED<br>
+                  DONATE<br>
+                  « HOME / GIFT<br>
+                  Gift<br>
+                  STEP 4 OF 4: PAYMENT INFORMATION.<br>
+                  Please provide your payment information below and then click submit to complete your purchas<br>
+                  [Content too long to display. See complete response in 'C:\Users\bliu\workprojects\automationtests\prodautobot\userAcceptTest\tests/_output\' directory]<br>
+                  --&gt; contains "Thank You".
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='GiftTestCest.familygift.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='GiftTestCest.familygift.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('6', this)">
+              <span class="toggle">+</span> <span class="quiet">GiftTestCest »</span> Visionarygift <span style="color: #34495e; font-size: 70%;">26.53s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer6">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/gift/visionary"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest107447@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN107447"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN107447"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/visionary/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-mail","gifttest107447@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN107447"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN107447"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-first-und-0-value","FN107447"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-last-und-0-value","LN107447"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/visionary/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/visionary/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that two strings are equal.
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='GiftTestCest.visionarygift.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='GiftTestCest.visionarygift.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('7', this)">
+              <span class="toggle">+</span> <span class="quiet">GiftTestCest »</span> Contributorgift <span style="color: #34495e; font-size: 70%;">40.47s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer7">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/gift/contributor"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest238212@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN238212"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN238212"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/contributor/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-mail","gifttest238212@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN238212"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN238212"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-first-und-0-value","FN238212"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-last-und-0-value","LN238212"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/contributor/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/contributor/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN238212"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN238212 LN238212"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that on page /gift/contributor/payment-method<br>
+                  --&gt; Skip to main content<br>
+                  LOG IN<br>
+                  TRANSLATE<br>
+                  STORE MEDIA CENTER ABOUT INTERACT BLOG CALENDAR MEMBERS FAQ<br>
+                  VISIT<br>
+                  MEMORIAL<br>
+                  MUSEUM<br>
+                  TEACH + LEARN<br>
+                  GET INVOLVED<br>
+                  DONATE<br>
+                  « HOME / GIFT<br>
+                  Gift<br>
+                  STEP 4 OF 4: PAYMENT INFORMATION.<br>
+                  Please provide your payment information below and then click submit to complete your purchas<br>
+                  [Content too long to display. See complete response in 'C:\Users\bliu\workprojects\automationtests\prodautobot\userAcceptTest\tests/_output\' directory]<br>
+                  --&gt; contains "Thank You".
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='GiftTestCest.contributorgift.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='GiftTestCest.contributorgift.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('8', this)">
+              <span class="toggle">+</span> <span class="quiet">GiftTestCest »</span> Patrongift <span style="color: #34495e; font-size: 70%;">43.54s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer8">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/gift/patron"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest302509@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN302509"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN302509"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/patron/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-mail","gifttest302509@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN302509"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN302509"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-first-und-0-value","FN302509"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-member-card-membership-card-card-name-last-und-0-value","LN302509"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/patron/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see current url equals <span style="color: #732E81">"/gift/patron/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN302509"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN302509 LN302509"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that on page /gift/patron/payment-method<br>
+                  --&gt; Skip to main content<br>
+                  LOG IN<br>
+                  TRANSLATE<br>
+                  STORE MEDIA CENTER ABOUT INTERACT BLOG CALENDAR MEMBERS FAQ<br>
+                  VISIT<br>
+                  MEMORIAL<br>
+                  MUSEUM<br>
+                  TEACH + LEARN<br>
+                  GET INVOLVED<br>
+                  DONATE<br>
+                  « HOME / GIFT<br>
+                  Gift<br>
+                  STEP 4 OF 4: PAYMENT INFORMATION.<br>
+                  Please provide your payment information below and then click submit to complete your purchas<br>
+                  [Content too long to display. See complete response in 'C:\Users\bliu\workprojects\automationtests\prodautobot\userAcceptTest\tests/_output\' directory]<br>
+                  --&gt; contains "Thank You".
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='GiftTestCest.patrongift.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='GiftTestCest.patrongift.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('9', this)">
+              <span class="toggle">+</span> <span class="quiet">JoinTest2Cest »</span> Individualtest <span style="color: #34495e; font-size: 70%;">57.29s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer9">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"Sign up"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/individual"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest603122@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN603122"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN603122"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-phone-und-0-value","1234567899"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN603122"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN603122"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/individual/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/individual/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/individual/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN603122"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN603122 LN603122"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">10</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that on page /join/individual/payment-method<br>
+                  --&gt; Skip to main content<br>
+                  LOG IN<br>
+                  TRANSLATE<br>
+                  STORE MEDIA CENTER ABOUT INTERACT BLOG CALENDAR MEMBERS FAQ<br>
+                  VISIT<br>
+                  MEMORIAL<br>
+                  MUSEUM<br>
+                  TEACH + LEARN<br>
+                  GET INVOLVED<br>
+                  DONATE<br>
+                  « HOME / JOIN<br>
+                  Join<br>
+                  STEP 4 OF 4: PAYMENT INFORMATION.<br>
+                  Please provide your payment information below and then click submit to complete your purchas<br>
+                  [Content too long to display. See complete response in 'C:\Users\bliu\workprojects\automationtests\prodautobot\userAcceptTest\tests/_output\' directory]<br>
+                  --&gt; contains "Thank You".
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='JoinTest2Cest.individualtest.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='JoinTest2Cest.individualtest.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioSuccess">
+          <td>
+            <p class="scenarioSuccess" onclick="showHide('10', this)">
+              <span class="toggle">+</span> <span class="quiet">JoinTest2Cest »</span> Individualrenewtest <span style="color: #34495e; font-size: 70%;">15.53s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioSuccess">
+          <td>
+            <table border="0" width="100%" class="scenarioSuccess scenarioStepsTable" id="stepContainer10">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-name","jointest476423@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-pass","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-submit"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">10</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('11', this)">
+              <span class="toggle">+</span> <span class="quiet">JoinTest2Cest »</span> Dualtest <span style="color: #34495e; font-size: 70%;">54.79s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer11">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"Sign up"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/dual"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest618421@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN618421"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN618421"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-phone-und-0-value","1234567899"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN618421"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN618421"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/dual/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/dual/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/dual/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN618421"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN618421 LN618421"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">10</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that on page /join/dual/payment-method<br>
+                  --&gt; Skip to main content<br>
+                  LOG IN<br>
+                  TRANSLATE<br>
+                  STORE MEDIA CENTER ABOUT INTERACT BLOG CALENDAR MEMBERS FAQ<br>
+                  VISIT<br>
+                  MEMORIAL<br>
+                  MUSEUM<br>
+                  TEACH + LEARN<br>
+                  GET INVOLVED<br>
+                  DONATE<br>
+                  « HOME / JOIN<br>
+                  Join<br>
+                  STEP 4 OF 4: PAYMENT INFORMATION.<br>
+                  Please provide your payment information below and then click submit to complete your purchas<br>
+                  [Content too long to display. See complete response in 'C:\Users\bliu\workprojects\automationtests\prodautobot\userAcceptTest\tests/_output\' directory]<br>
+                  --&gt; contains "Thank You".
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='JoinTest2Cest.dualtest.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='JoinTest2Cest.dualtest.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('12', this)">
+              <span class="toggle">+</span> <span class="quiet">JoinTest2Cest »</span> Familytest <span style="color: #34495e; font-size: 70%;">52.98s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer12">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"Sign up"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/family"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest865641@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN865641"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN865641"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-phone-und-0-value","1234567899"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN865641"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN865641"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/family/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/family/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/family/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN865641"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN865641 LN865641"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">10</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that on page /join/family/payment-method<br>
+                  --&gt; Skip to main content<br>
+                  LOG IN<br>
+                  TRANSLATE<br>
+                  STORE MEDIA CENTER ABOUT INTERACT BLOG CALENDAR MEMBERS FAQ<br>
+                  VISIT<br>
+                  MEMORIAL<br>
+                  MUSEUM<br>
+                  TEACH + LEARN<br>
+                  GET INVOLVED<br>
+                  DONATE<br>
+                  « HOME / JOIN<br>
+                  Join<br>
+                  STEP 4 OF 4: PAYMENT INFORMATION.<br>
+                  Please provide your payment information below and then click submit to complete your purchas<br>
+                  [Content too long to display. See complete response in 'C:\Users\bliu\workprojects\automationtests\prodautobot\userAcceptTest\tests/_output\' directory]<br>
+                  --&gt; contains "Thank You".
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='JoinTest2Cest.familytest.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='JoinTest2Cest.familytest.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('13', this)">
+              <span class="toggle">+</span> <span class="quiet">JoinTest2Cest »</span> Visionarytest <span style="color: #34495e; font-size: 70%;">55.55s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer13">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"Sign up"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/visionary"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest798542@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN798542"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN798542"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-phone-und-0-value","1234567899"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN798542"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN798542"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/visionary/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/visionary/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/visionary/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN798542"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN798542 LN798542"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">10</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that on page /join/visionary/payment-method<br>
+                  --&gt; Skip to main content<br>
+                  LOG IN<br>
+                  TRANSLATE<br>
+                  STORE MEDIA CENTER ABOUT INTERACT BLOG CALENDAR MEMBERS FAQ<br>
+                  VISIT<br>
+                  MEMORIAL<br>
+                  MUSEUM<br>
+                  TEACH + LEARN<br>
+                  GET INVOLVED<br>
+                  DONATE<br>
+                  « HOME / JOIN<br>
+                  Join<br>
+                  STEP 4 OF 4: PAYMENT INFORMATION.<br>
+                  Please provide your payment information below and then click submit to complete your purchas<br>
+                  [Content too long to display. See complete response in 'C:\Users\bliu\workprojects\automationtests\prodautobot\userAcceptTest\tests/_output\' directory]<br>
+                  --&gt; contains "Thank You".
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='JoinTest2Cest.visionarytest.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='JoinTest2Cest.visionarytest.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('14', this)">
+              <span class="toggle">+</span> <span class="quiet">JoinTest2Cest »</span> Contributortest <span style="color: #34495e; font-size: 70%;">51.24s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer14">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"Sign up"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/contributor"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest51938@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN51938"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN51938"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-phone-und-0-value","1234567899"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN51938"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN51938"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/contributor/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/contributor/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/contributor/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN51938"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN51938 LN51938"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">10</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that on page /join/contributor/payment-method<br>
+                  --&gt; Skip to main content<br>
+                  LOG IN<br>
+                  TRANSLATE<br>
+                  STORE MEDIA CENTER ABOUT INTERACT BLOG CALENDAR MEMBERS FAQ<br>
+                  VISIT<br>
+                  MEMORIAL<br>
+                  MUSEUM<br>
+                  TEACH + LEARN<br>
+                  GET INVOLVED<br>
+                  DONATE<br>
+                  « HOME / JOIN<br>
+                  Join<br>
+                  STEP 4 OF 4: PAYMENT INFORMATION.<br>
+                  Please provide your payment information below and then click submit to complete your purchas<br>
+                  [Content too long to display. See complete response in 'C:\Users\bliu\workprojects\automationtests\prodautobot\userAcceptTest\tests/_output\' directory]<br>
+                  --&gt; contains "Thank You".
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='JoinTest2Cest.contributortest.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='JoinTest2Cest.contributortest.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <p class="scenarioFailed" onclick="showHide('15', this)">
+              <span class="toggle">+</span> <span class="quiet">JoinTest2Cest »</span> Patrontest <span style="color: #34495e; font-size: 70%;">61.06s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioFailed">
+          <td>
+            <table border="0" width="100%" class="scenarioFailed scenarioStepsTable" id="stepContainer15">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"Sign up"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/patron"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest895606@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN895606"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN895606"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-phone-und-0-value","1234567899"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN895606"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN895606"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/patron/member-card"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/patron/review"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I execute js <span style="color: #732E81">"jQuery("#edit-membership-review-membership-terms").show()"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I check option <span style="color: #732E81">"#edit-membership-review-membership-terms"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/patron/payment-method"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN895606"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-owner","FN895606 LN895606"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-number","4242424242424242"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-month","12 - December"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-exp-year","2025"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-commerce-payment-payment-details-credit-card-code","789"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">5</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">10</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName failedStep">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I see <span style="color: #732E81">"Thank You"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="error">
+                  Failed asserting that on page /join/patron/payment-method<br>
+                  --&gt; Skip to main content<br>
+                  LOG IN<br>
+                  TRANSLATE<br>
+                  STORE MEDIA CENTER ABOUT INTERACT BLOG CALENDAR MEMBERS FAQ<br>
+                  VISIT<br>
+                  MEMORIAL<br>
+                  MUSEUM<br>
+                  TEACH + LEARN<br>
+                  GET INVOLVED<br>
+                  DONATE<br>
+                  « HOME / JOIN<br>
+                  Join<br>
+                  STEP 4 OF 4: PAYMENT INFORMATION.<br>
+                  Please provide your payment information below and then click submit to complete your purchas<br>
+                  [Content too long to display. See complete response in 'C:\Users\bliu\workprojects\automationtests\prodautobot\userAcceptTest\tests/_output\' directory]<br>
+                  --&gt; contains "Thank You".
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  <div class='screenshot'>
+                    <img src='JoinTest2Cest.patrontest.fail.png' alt='failure screenshot'>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class='error'>
+                  See <a href='JoinTest2Cest.patrontest.fail.html' target='_blank'>HTML snapshot</a> of a failed page
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioSuccess">
+          <td>
+            <p class="scenarioSuccess" onclick="showHide('16', this)">
+              <span class="toggle">+</span> <span class="quiet">JoinTestCest »</span> Jointest <span style="color: #34495e; font-size: 70%;">21.39s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioSuccess">
+          <td>
+            <table border="0" width="100%" class="scenarioSuccess scenarioStepsTable" id="stepContainer16">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"Sign up"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/join/patron"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-mail","jointest17226@jointest.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass1","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-join-account-account-user-pass-pass2","testregisterPassword"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","FN17226"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","LN17226"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-phone-und-0-value","1234567899"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-first-name-und-0-value","FN17226"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-last-name-und-0-value","LN17226"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-thoroughfare","123 testaddress1 st."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-premise","apartment addr2"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-locality","testjoincity"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-postal-code","10027"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-country","United States"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-billing-location-und-0-administrative-area","New York"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-continue"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">10</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioSuccess">
+          <td>
+            <p class="scenarioSuccess" onclick="showHide('17', this)">
+              <span class="toggle">+</span> <span class="quiet">RegisterTestCest »</span> Registertest <span style="color: #34495e; font-size: 70%;">18.39s</span>
+            </p>
+          </td>
+        </tr>
+        <tr class="scenarioRow scenarioSuccess">
+          <td>
+            <table border="0" width="100%" class="scenarioSuccess scenarioStepsTable" id="stepContainer17">
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"Sign up"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I am on page <span style="color: #732E81">"/user/register"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-first-name-und-0-value","testregisterFN"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-profile-main-field-profile-last-name-und-0-value","testregisterLN"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-name","testregisterUser1"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-mail","testregisteremail1@email.com"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-pass-pass1","Testregisterpass1!"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I fill field <span style="color: #732E81">"#edit-pass-pass2","Testregisterpass1!"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I select option <span style="color: #732E81">"#edit-profile-main-field-profile-title-und","Dr."</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I click <span style="color: #732E81">"#edit-submit"</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="stepName">
+                  &nbsp;&nbsp;&nbsp;&nbsp;I wait <span style="color: #732E81">10</span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h2>
+              Summary
+            </h2>
+            <div id="stepContainerSummary">
+              <table border="0">
+                <tr>
+                  <td width="250" class="scenarioSuccess">
+                    Successful scenarios:
+                  </td>
+                  <td class="scenarioSuccessValue">
+                    <strong>5</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="scenarioFailed">
+                    Failed scenarios:
+                  </td>
+                  <td class="scenarioFailedValue">
+                    <strong>12</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="scenarioSkipped">
+                    Skipped scenarios:
+                  </td>
+                  <td class="scenarioSkippedValue">
+                    <strong>0</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="scenarioIncomplete">
+                    Incomplete scenarios:
+                  </td>
+                  <td class="scenarioIncompleteValue">
+                    <strong>0</strong>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
+>>>>>>> 67a3ce9d9da43d40ead7f4f00670471f61f3b5a8

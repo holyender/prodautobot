@@ -1,14 +1,14 @@
 <?php
 
-	$ccOwnerFirst = "FN12345";
-	$ccOwnerLast = "LN12345";
-	$ccNum = "4242424242424242";
-	$ccExpMonth = "12 - December";
-	$ccExpYear = "2025";
-	$ccCVV = "789";
-
 
 class GiftTestCest{
+
+	var $ccOwnerFirst = "FN12345";
+	var $ccOwnerLast = "LN12345";
+	var $ccNum = "4242424242424242";
+	var $ccExpMonth = "12 - December";
+	var $ccExpYear = "2025";
+	var $ccCVV = "789";
 
 
 	public function individualgift(AcceptanceTester $I){
@@ -70,12 +70,12 @@ class GiftTestCest{
 
 		$I->wait(5);
 		$I->seeCurrentUrlEquals('/gift/individual/payment-method');
-		$I->fillField('#edit-commerce-payment-payment-details-credit-card-owner', ''.$ccOwnerFirst.'');
-		$I->fillField('#edit-commerce-payment-payment-details-credit-card-owner', ''.$ccOwnerFirst.' '.$ccOwnerLast.'');
-		$I->fillField('#edit-commerce-payment-payment-details-credit-card-number', ''.$ccNum.'');
-		$I->selectOption('#edit-commerce-payment-payment-details-credit-card-exp-month', ''.$ccExpMonth.'');
-		$I->selectOption('#edit-commerce-payment-payment-details-credit-card-exp-year', ''.$ccExpYear.'');
-		$I->fillField('#edit-commerce-payment-payment-details-credit-card-code', ''.$ccCVV.'');
+		$I->fillField('#edit-commerce-payment-payment-details-credit-card-owner', $this->ccOwnerFirst);
+		$I->fillField('#edit-commerce-payment-payment-details-credit-card-owner', $this->ccOwnerFirst.' '.$this->ccOwnerLast);
+		$I->fillField('#edit-commerce-payment-payment-details-credit-card-number', $this->ccNum);
+		$I->selectOption('#edit-commerce-payment-payment-details-credit-card-exp-month', $this->ccExpMonth);
+		$I->selectOption('#edit-commerce-payment-payment-details-credit-card-exp-year', $this->ccExpYear);
+		$I->fillField('#edit-commerce-payment-payment-details-credit-card-code', $this->ccCVV);
 
 		$I->wait(5);
 
